@@ -2,41 +2,45 @@ package com.clost.Service;
 
 import com.clost.QQ_Common.Message;
 import com.clost.QQ_Common.MessageType;
-
-import java.io.EOFException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
 
 /**
  * @author clost
  * @date 2022/7/17 23:56
  */
-public class ClientConnectServiceThread extends Thread{
+public class ClientConnectServiceThread extends Thread {
 
     private Socket socket;
 
 
-    public ClientConnectServiceThread(Socket socket){
+    public ClientConnectServiceThread(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void run() {
         //等待读取服务器消息
-        while (true){
+        while (true) {
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 Message msg = (Message) ois.readObject();
 
-                if (msg.getMsgType().equals(MessageType.MESSAGE_RET_ONLINE_USER)){
+                if (msg.getMsgType().equals(MessageType.MESSAGE_RET_ONLINE_USER)) {
 
                     String[] onlineUsers = msg.getContent().split(" ");
                     for (int i = 0; i < onlineUsers.length; i++) {
                         System.out.println("用户:" + onlineUsers[i]);
                     }
-                }else {
+                } else if (msg.getMsgType().equals(MessageType.MESSAGE_COMM_MES)) {
+                    //普通消息打印到控制台
+                    System.out.println("\n" + msg.getSender() + "对" + msg.getGetter() + "说 : " + msg.getContent());
+
+                } else if (msg.getMsgType().equals(MessageType.MESSAGE_TO_ALL_MES)){
+                    System.out.println("\n" + msg.getSender() +"对大家说: " +msg.getContent());
+                }
+
+                else {
                     System.out.println("是其他类型的message, 暂时不处理....");
                 }
 
@@ -46,7 +50,7 @@ public class ClientConnectServiceThread extends Thread{
         }
     }
 
-    public Socket getSocket(){
+    public Socket getSocket() {
         return socket;
     }
 

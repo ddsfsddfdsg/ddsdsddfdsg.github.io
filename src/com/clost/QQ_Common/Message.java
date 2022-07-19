@@ -13,6 +13,7 @@ public class Message implements Serializable {
     private String content;//消息内容
     private String sendTime;//发送时间
     private String msgType;//消息类型
+    private byte[] fileBytes;
 
     public String getSender() {
         return sender;

@@ -2,6 +2,7 @@ package com.clost.QQ_view;
 
 import com.clost.QQ_Common.User;
 import com.clost.QQ_Common.UserType;
+import com.clost.Service.MessageClientService;
 import com.clost.Service.UserClientService;
 import com.clost.utils.Utility;
 
@@ -10,9 +11,6 @@ import com.clost.utils.Utility;
  * @date 2022/7/17 23:08
  */
 public class QQView {
-    public boolean key = true;//循环控制
-    public boolean key2 = true;//
-    UserClientService userClientService = null;
 
 
     public static void main(String[] args) {
@@ -21,6 +19,10 @@ public class QQView {
 
     }
 
+
+    public boolean key = true;//循环控制
+    String userId;
+    UserClientService userClientService = null;
 
     /**
      * 登录菜单
@@ -47,8 +49,10 @@ public class QQView {
     }
 
     /**
-     * 验证登录 or 注册新用户
+     * @param userType 用户类型 新用户 or 老用户
+     *                 新用户注册，老用户登录
      */
+
     public void Login(String userType) {
         userClientService = new UserClientService();
 
@@ -56,7 +60,7 @@ public class QQView {
         while (key) {
             //注册 or 登录
             System.out.println("请输入用户名: ");
-            String userId = Utility.readString(50);
+            userId = Utility.readString(50);
             System.out.println(" 请输入密码: ");
             String passwd = Utility.readString(50);
 
@@ -83,9 +87,9 @@ public class QQView {
     }
 
     /**
+     * 验证通过后二级菜单
      * 登录 or 注册后 进入二级菜单
      */
-    //验证通过后二级菜单
     public void After_Login() {
 
 
@@ -101,8 +105,17 @@ public class QQView {
             switch (Utility.readString(1)) {
                 case "1" -> userClientService.onlineUserList();
                 case "2" -> {
+                    System.out.println("请输入你要发送的信息");
+                    String content = Utility.readString(120);
+                    MessageClientService.sendMessageToAll(content,userId);
+
                 }
                 case "3" -> {
+                    System.out.println("你想给谁发送消息:");
+                    String getter = Utility.readString(30);
+                    System.out.println("请输入你要发送的内容:");
+                    String content = Utility.readString(100);
+                    MessageClientService.sendMessageToOne(content, userId, getter);
                 }
                 case "4" -> {
                 }
@@ -119,8 +132,6 @@ public class QQView {
 
     }
 
-    //私聊
-//    public void ChatToPe
 }
 
 

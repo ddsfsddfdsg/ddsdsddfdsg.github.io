@@ -3,9 +3,6 @@ package com.clost.Service;
 import com.clost.QQ_Common.Message;
 import com.clost.QQ_Common.MessageType;
 import com.clost.QQ_Common.User;
-import com.clost.QQ_Common.UserType;
-import com.sun.source.tree.Scope;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,8 +20,10 @@ public class UserClientService {
 
 
     /**
-     * 登录 or 注册
-     * 根据userType判断登录还是注册
+     *
+     * @param userId 用户id
+     * @param passwd 用户密码
+     * @param userType 用户类型 新用户 or 老用户
      */
     public boolean checkLogin(String userId, String passwd, String userType) {
         boolean check = false;
@@ -86,7 +85,6 @@ public class UserClientService {
 
 
     //用户退出，通知服务器
-
     public void logOut() {
 
         Message msg = new Message();
