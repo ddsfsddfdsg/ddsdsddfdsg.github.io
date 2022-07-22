@@ -20,12 +20,12 @@ public class MessageClientService {
      * @param sender 发送人
      * @param getter 接收人
      */
-    public static void sendMessageToOne(String content,String sender,String getter ){
+    public static void sendMessageToOne(String content,String sender,String getter ,String MesType){
         Message msg = new Message();
         msg.setSender(sender);
         msg.setGetter(getter);
         msg.setContent(content);
-        msg.setMsgType(MessageType.MESSAGE_COMM_MES);
+        msg.setMsgType(MesType);
         //发送时间
         msg.setSendTime(new Date().toString());
         System.out.println("");

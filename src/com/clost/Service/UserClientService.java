@@ -33,7 +33,7 @@ public class UserClientService {
 
         try {
             //向服务端发起验证
-            socket = new Socket(InetAddress.getByName("127.0.0.1"), 54321);
+            socket = new Socket(InetAddress.getByName("82.157.170.131"), 54321);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(u);
 
@@ -47,7 +47,6 @@ public class UserClientService {
                 //创建通信线程
                 ClientConnectServiceThread ccst = new ClientConnectServiceThread(socket);
                 ccst.start();
-
                 //把线程放入线程集合管理
                 ManageClientServicesThread.addClientThread(userId, ccst);
 
@@ -100,6 +99,10 @@ public class UserClientService {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void sendOfflineMes(String sender,String getter,String co){
 
     }
 

@@ -13,7 +13,13 @@ public class Message implements Serializable {
     private String content;//消息内容
     private String sendTime;//发送时间
     private String msgType;//消息类型
+
+    //文件传输相关变量
     private byte[] fileBytes;
+    private int fileLen = 0;
+    private String dest;//接收文件路径
+    private String src;//发送文件路径
+
 
     public String getSender() {
         return sender;
@@ -53,5 +59,37 @@ public class Message implements Serializable {
 
     public void setMsgType(String msgType) {
         this.msgType = msgType;
+    }
+
+    public byte[] getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
+    public int getFileLen() {
+        return fileLen;
+    }
+
+    public void setFileLen(int fileLen) {
+        this.fileLen = fileLen;
+    }
+
+    public String getDest() {
+        return dest;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }
